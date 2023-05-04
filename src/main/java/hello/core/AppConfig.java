@@ -16,20 +16,26 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
     @Bean
     public MemberService memberService() {
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
     @Bean
+    public MemberRepository memberRepository() {
+        System.out.println("call AppConfig.memberRepository");
+        return new MemoryMemberRepository();
+    }
+
+    @Bean
     public OrderService orderService() {
+        // soutm 단축키
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImple(
                 memberRepository(),
                 discountPolicy());
     }
     @Bean
-    public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
-    }
-    @Bean
     public DiscountPoicy discountPolicy() {
+
         return new RateDiscountPolicy();
     }
 }
